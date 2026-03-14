@@ -1,0 +1,46 @@
+{
+  "name": "@epresas/react-hooks-collection",
+  "version": "1.0.0",
+  "description": "A production-ready, strictly typed collection of React Hooks designed as an internal toolset for scalable applications.",
+  "homepage": "https://github.com/epresas/react-hooks-collection",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/epresas/react-hooks-collection.git"
+  },
+  "author": "Edmundo Presas",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "test": "vitest run",
+    "lint": "eslint src/"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "keywords": [
+    "react",
+    "hooks",
+    "typescript",
+    "production-ready",
+    "scalable"
+  ],
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "jsdom": "^28.1.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.0"
+  }
+}

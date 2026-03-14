@@ -4,7 +4,7 @@
 
 ## The "Why" Behind This Repository
 
-The React ecosystem is filled with massive hook libraries and quick copy-paste snippets. However, after years of scaling frontend applications and working in cross-functional squads, I've found that the real challenge isn't just writing a hook that "works"—it's writing a hook that is safe, predictable, and resilient across a shared codebase.
+The React ecosystem is filled with massive hook libraries and quick copy-paste snippets. However, after years of scaling frontend applications and working in cross-functional squads, I've found that the real challenge isn't just writing a hook that "works", it's writing a hook that is safe, predictable, and resilient across a shared codebase.
 
 I created this repository to document my approach to solving common UI, performance, and state management problems. This isn't intended to be just another utility library; it's a demonstration of **technical intentionality**. 
 
