@@ -4,6 +4,8 @@ on:
   pull_request:
     branches:
       - main
+    types: [opened, edited, synchronize, reopened]
+  workflow_dispatch:
 
 jobs:
   # ─────────────────────────────────────────────────────────────────────────────
