@@ -44,9 +44,13 @@ jobs:
         if: steps.bump.outputs.type != 'skip'
         id: version
         run: |
-          # Get latest semver tag, default to v0.0.0 if none exists
+          # Get latest semver tag; fall back to version in package.json if no tags exist yet
           LATEST=$(git tag --list 'v*' --sort=-version:refname | head -n 1)
-          LATEST=${LATEST:-v0.0.0}
+          if [[ -z "$LATEST" ]]; then
+            PKG_VERSION=$(node -p "require('./package.json').version")
+            LATEST="v${PKG_VERSION}"
+            echo "No existing tags — using package.json version as baseline: $LATEST"
+          fi
           echo "Latest tag: $LATEST"
 
           # Strip leading 'v'

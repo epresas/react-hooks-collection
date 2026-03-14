@@ -1,39 +1,46 @@
-# React Hooks Collection: Patterns & Implementations
+# @epresas/react-hooks-collection
 
-> A curated collection of production-ready React Hooks, focused on API design, TypeScript strictness, and solving real-world architecture challenges.
+A premium collection of high-seniority React hooks, designed to solve real-world problems inspired by the most common technical challenges on StackOverflow.
 
-## The "Why" Behind This Repository
+Developed with **TypeScript**, **Vitest**, and **GitHub Actions**.
 
-The React ecosystem is filled with massive hook libraries and quick copy-paste snippets. However, after years of scaling frontend applications and working in cross-functional squads, I've found that the real challenge isn't just writing a hook that "works", it's writing a hook that is safe, predictable, and resilient across a shared codebase.
+## 🚀 Hooks Catalog
 
-I created this repository to document my approach to solving common UI, performance, and state management problems. This isn't intended to be just another utility library; it's a demonstration of **technical intentionality**. 
+| # | Hook | Problem Solved |
+|---|------|----------------|
+| 1 | `useDebounce` | Prevent excessive API calls during search or validation. |
+| 2 | `useAsync` | Handle async logic with `AbortController` and race condition prevention. |
+| 3 | `usePrevious` | Track the value from the previous render. |
+| 4 | `useWindowSize` | Get viewport dimensions with optimized, debounced resize handling. |
+| 5 | `useIntersectionObserver` | Visibility detection for lazy loading and infinite scroll. |
+| 6 | `useLocalStorage` | Persist state in localStorage with cross-tab synchronization. |
+| 7 | `useMediaQuery` | Declarative CSS media queries using the native `matchMedia` API. |
+| 8 | `useToggle` | Clean and stable API for boolean state management. |
+| 9 | `useClickAway` | Detect clicks outside an element (perfect for modals/dropdowns). |
+| 10 | `useCopyToClipboard` | Abstract Clipboard API with user feedback status. |
+| 11 | `useEventListener` | Safe event listener management with automatic cleanup. |
+| 12 | `useDocumentTitle` | Declarative `document.title` synchronization with unmount restoration. |
+| 13 | `useThrottle` | Rate-limit high-frequency updates (scroll, mousemove). |
 
-When abstracting logic into custom hooks, my primary focus is on:
-*   **API Design:** Creating intuitive, minimalistic interfaces that are hard for other developers to misuse.
-*   **TypeScript Strictness:** Leveraging generics to ensure robust type inference and safety at the call site.
-*   **Resilience & Edge Cases:** Proactively handling stale closures, preventing memory leaks (proper cleanup phases), and avoiding silent bugs like async race conditions.
-*   **Behavioral Testing:** Ensuring every implementation is backed by tests that verify user behavior rather than internal implementation details.
+## 🛠 Installation
 
-## What You'll Find Here
-
-This repository is structured to prioritize context over sheer volume. I believe that *why* a decision was made is often more important than the code itself. 
-
-Therefore, instead of a monolithic file, every hook lives in its own isolated module within the `src/` directory. For each hook, you will find:
-
-1.  **The Implementation (`use[Name].ts`):** The source code itself, annotated with the design decisions behind the chosen approach (e.g., why a `useRef` was used instead of a `useState` for a specific problem).
-2.  **The Test Suite (`use[Name].test.ts`):** Robust, behavior-driven tests validating the hook under various scenarios and edge cases.
-3.  **Dedicated Documentation (`README.md`):** Every hook has its own README explaining the specific problem it solves, the trade-offs considered, and how to use it safely in production.
-
-## Repository Structure
-
-```text
-react-hooks-collection/
-├── src/
-│   ├── use[HookName]/
-│   │   ├── use[HookName].ts       # Source code with design comments
-│   │   ├── use[HookName].test.ts  # RTL / Vitest test suite
-│   │   └── README.md              # Context, trade-offs, and examples
-│   └── ...
-├── package.json                   
-└── README.md                      # You are here
+```bash
+npm install @epresas/react-hooks-collection
 ```
+
+## 💎 Why this library?
+
+Unlike many generic collections, every hook here is built with **Seniority Patterns** in mind:
+- **Performance**: Optimized re-renders using `useCallback`, `useRef`, and debouncing/throttling.
+- **Robustness**: Proper handling of memory leaks, stale closures, and component unmounting.
+- **TypeScript First**: Full type inference and strict generic support.
+- **Well Documented**: Each hook includes its own README explaining the "Why" behind the "How".
+
+## 📦 Developer Experience
+
+- **CI/CD**: Fully automated testing and semantic versioning on every PR.
+- **Zero Config Build**: Powered by `tsup` for lightning-fast ESM/CJS exports.
+- **Tests**: 100% test coverage using Vitest and React Testing Library.
+
+---
+Created by [Edmundo Presas](https://github.com/epresas).
