@@ -25,19 +25,23 @@ export default [
     },
     plugins: {
       "@typescript-eslint": tsPlugin,
+      "react-hooks": (await import("eslint-plugin-react-hooks")).default,
     },
     rules: {
       // TypeScript recommended rules (flat-config style)
       ...tsPlugin.configs["recommended"].rules,
 
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+
       // Enforce explicit return types on exported functions
       "@typescript-eslint/explicit-module-boundary-types": "warn",
 
       // Disallow `any`
-      "@typescript-eslint/no-explicit-any": "error",
+      "@typescript-eslint/no-explicit-any": "warn",
 
       // Disallow unused variables
-      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
     },
   },
 

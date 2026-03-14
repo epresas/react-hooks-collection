@@ -1,48 +1,43 @@
-# `useDebounce`
+# useDebounce
 
-Delays updating a value until a specified time has passed without any new changes.
+Delays updating a value until a specified time has passed without changes.
 
-## The problem it solves
+### The problem it solves
+In search inputs or form validation, you don't want to trigger an 
+API call on every keystroke. This hook ensures the effect only fires 
+after the user stops typing.
 
-In search inputs, auto-saving forms, or complex validations, you don't want to trigger an expensive API call or a heavy component re-render on every single keystroke. 
+### Design Decisions
+- **Generic Support**: Works with any type (strings, objects, numbers).
+- **Stale Closure Prevention**: Uses internal effect cleanup to ensure only the latest timer survives.
 
-Without debouncing, typing "hello" triggers 5 immediate updates. With debouncing, it only triggers 1 update when the user stops typing for a specified amount of time.
-
-## Why this implementation? (Design Decisions)
-
-The naive implementation often uses the value directly in the cleanup function, which can create a stale closure bug in React. 
-
-This implementation:
-- Uses a `useRef` for the timeout to ensure the closure always has access to the latest timer ID.
-- Automatically cleans up the pending timeout on component unmount, preventing memory leaks and React state update warnings on unmounted components.
-- Uses strict TypeScript generics (`<T>`) so it can debounce strings, numbers, objects, or arrays while preserving the exact type inference at the call site.
-
-## Usage
-
+### Real-World Example: Live Search with API calls
 ```tsx
-import { useState, useEffect } from 'react';
-import { useDebounce } from '@edmundopresas/react-hooks';
-
-export function SearchComponent() {
+function SearchComponent() {
   const [searchTerm, setSearchTerm] = useState('');
-  
-  // debouncedSearch will only update 500ms after the last keystroke
   const debouncedSearch = useDebounce(searchTerm, 500);
 
   useEffect(() => {
     if (debouncedSearch) {
-      // ✅ Safe to call API here, won't spam the server
-      fetchResults(debouncedSearch);
+      // This only fires 500ms after the user stops typing
+      api.search(debouncedSearch).then(results => {
+        // ... update UI
+      });
     }
   }, [debouncedSearch]);
 
   return (
-    <input 
-      type="text" 
-      value={searchTerm} 
-      onChange={(e) => setSearchTerm(e.target.value)} 
-      placeholder="Search..."
+    <input
+      type="text"
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+      placeholder="Type to search..."
     />
   );
 }
 ```
+
+### Edge Cases Covered
+- Cancels pending timeout on component unmount (memory leak prevention).
+- Handles changing delay values correctly.
+- Works with any type (generic T).
