@@ -1,0 +1,42 @@
+name: Block Direct Push to Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  block-direct-push:
+    name: Block Direct Push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail if this is a direct push (not a merge commit from a PR)
+        run: |
+          # A GitHub PR merge always produces a merge commit or a squash commit
+          # tied to a pull_request event. A plain `push` event on main that is
+          # NOT from the release workflow is considered a direct push.
+          #
+          # We detect it by checking whether the actor is NOT the Actions bot.
+          ACTOR="${{ github.actor }}"
+          if [[ "$ACTOR" != "github-actions[bot]" ]]; then
+            echo ""
+            echo "❌ Direct pushes to 'main' are not allowed."
+            echo ""
+            echo "   Please follow these steps:"
+            echo "   1. Create a branch following the naming convention:"
+            echo "        <type>/<brief-description>"
+            echo "      Allowed types: feature, bugfix, chore, hotfix, release,"
+            echo "                     fix, docs, refactor, test, perf"
+            echo ""
+            echo "   2. Push your branch and open a Pull Request."
+            echo "   3. The PR title must start with [major], [minor], or [patch]."
+            echo "   4. Get your PR reviewed and approved, then merge via GitHub."
+            echo ""
+            echo "   Examples of valid branch names:"
+            echo "     ✅  feature/add-use-throttle"
+            echo "     ✅  bugfix/fix-debounce-cleanup"
+            echo "     ✅  docs/update-readme"
+            echo ""
+            exit 1
+          fi
+          echo "✅ Push from github-actions[bot] — allowed (automated release step)."
