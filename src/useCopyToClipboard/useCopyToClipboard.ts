@@ -12,10 +12,14 @@ export type CopyState = 'idle' | 'copied' | 'error';
  * 
  * @param resetDelay - Time in ms before state reverts to 'idle'. Default: 2000.
  */
-export function useCopyToClipboard(resetDelay = 2000) {
+export function useCopyToClipboard(resetDelay = 2000): {
+  copy: (text: string) => Promise<void>;
+  state: CopyState;
+  isCopied: boolean;
+} {
   const [state, setState] = useState<CopyState>('idle');
 
-  const copy = useCallback(async (text: string) => {
+  const copy = useCallback(async (text: string): Promise<void> => {
     try {
       await navigator.clipboard.writeText(text);
       setState('copied');

@@ -31,7 +31,7 @@ export function useMediaQuery(query: string): boolean {
     if (mediaQuery.addEventListener) {
       mediaQuery.addEventListener('change', handler);
     } else {
-      (mediaQuery as any).addListener(handler);
+      (mediaQuery as MediaQueryList).addListener(handler);
     }
 
     // Set initial value in case it changed between initializer and effect
@@ -41,7 +41,7 @@ export function useMediaQuery(query: string): boolean {
       if (mediaQuery.removeEventListener) {
         mediaQuery.removeEventListener('change', handler);
       } else {
-        (mediaQuery as any).removeListener(handler);
+        (mediaQuery as MediaQueryList).removeListener(handler);
       }
     };
   }, [query]);

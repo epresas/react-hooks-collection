@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, DependencyList } from 'react';
 
 export type AsyncStatus = 'idle' | 'pending' | 'success' | 'error';
 
@@ -24,7 +24,7 @@ export interface AsyncState<T> {
  */
 export function useAsync<T>(
   asyncFn: (signal: AbortSignal) => Promise<T>,
-  deps: React.DependencyList = []
+  deps: DependencyList = []
 ): AsyncState<T> {
   const [state, setState] = useState<AsyncState<T>>({
     status: 'idle',

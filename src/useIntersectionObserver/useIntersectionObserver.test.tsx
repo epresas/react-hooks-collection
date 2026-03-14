@@ -32,7 +32,7 @@ describe('useIntersectionObserver', () => {
   it('should initialize the observer when element is rendered', () => {
     function TestComponent() {
       const [ref] = useIntersectionObserver({ threshold: 0.5 });
-      return <div ref={ref as any}>Test Element</div>;
+      return <div ref={ref as React.RefObject<HTMLDivElement>}>Test Element</div>;
     }
 
     render(<TestComponent />);

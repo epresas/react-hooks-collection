@@ -12,28 +12,28 @@ describe('useMediaQuery', () => {
   });
 
   beforeEach(() => {
-    vi.stubGlobal('matchMedia', vi.fn().mockImplementation(query => matchMediaMock(false)));
+    vi.stubGlobal('matchMedia', vi.fn().mockImplementation((_query: string) => matchMediaMock(false)));
   });
 
   it('should initialize with the current match state', () => {
-    (window.matchMedia as any).mockImplementation(() => matchMediaMock(true));
+    vi.mocked(window.matchMedia).mockImplementation(() => matchMediaMock(true) as unknown as MediaQueryList);
     const { result } = renderHook(() => useMediaQuery('(max-width: 600px)'));
     expect(result.current).toBe(true);
   });
 
   it('should update state when media query result changes', () => {
-    let handler: any;
-    (window.matchMedia as any).mockImplementation(() => ({
+    let handler: ((event: MediaQueryListEvent) => void) | undefined;
+    vi.mocked(window.matchMedia).mockImplementation(() => ({
       matches: false,
-      addEventListener: (type: string, h: any) => { handler = h; },
+      addEventListener: (_type: string, h: (event: MediaQueryListEvent) => void) => { handler = h; },
       removeEventListener: vi.fn(),
-    }));
+    } as unknown as MediaQueryList));
 
     const { result } = renderHook(() => useMediaQuery('(max-width: 600px)'));
     expect(result.current).toBe(false);
 
     act(() => {
-      handler({ matches: true });
+      handler?.({ matches: true } as MediaQueryListEvent);
     });
 
     expect(result.current).toBe(true);

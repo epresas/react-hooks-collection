@@ -1,4 +1,4 @@
-import { renderHook, act, waitFor } from '@testing-library/react';
+import { renderHook, act } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { useCopyToClipboard } from './useCopyToClipboard';
 
@@ -48,7 +48,7 @@ describe('useCopyToClipboard', () => {
   });
 
   it('should handle errors', async () => {
-    (navigator.clipboard.writeText as any).mockRejectedValueOnce(new Error('Failed'));
+    vi.mocked(navigator.clipboard.writeText).mockRejectedValueOnce(new Error('Failed'));
     const { result } = renderHook(() => useCopyToClipboard());
     
     await act(async () => {
