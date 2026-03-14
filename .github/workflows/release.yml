@@ -28,11 +28,11 @@ jobs:
           MSG=$(git log -1 --pretty=%s)
           echo "Commit message: $MSG"
 
-          if [[ "$MSG" =~ ^\[major\] ]]; then
+          if echo "$MSG" | grep -qiE '^major'; then
             echo "type=major" >> "$GITHUB_OUTPUT"
-          elif [[ "$MSG" =~ ^\[minor\] ]]; then
+          elif echo "$MSG" | grep -qiE '^minor'; then
             echo "type=minor" >> "$GITHUB_OUTPUT"
-          elif [[ "$MSG" =~ ^\[patch\] ]]; then
+          elif echo "$MSG" | grep -qiE '^patch'; then
             echo "type=patch" >> "$GITHUB_OUTPUT"
           else
             echo "⚠️  No [major|minor|patch] prefix found in commit message."

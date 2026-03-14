@@ -46,24 +46,21 @@ jobs:
     name: Validate PR Title
     runs-on: ubuntu-latest
     steps:
-      - name: Check PR title starts with [major], [minor], or [patch]
+      - name: Check PR title contains major, minor, or patch
         env:
           PR_TITLE: ${{ github.event.pull_request.title }}
         run: |
-          PATTERN='^\[(major|minor|patch)\] .+'
-          if [[ ! "$PR_TITLE" =~ $PATTERN ]]; then
+          # Case-insensitive: title must START with the word major, minor, or patch
+          if ! echo "$PR_TITLE" | grep -qiE '^(major|minor|patch)'; then
             echo ""
-            echo "❌ PR title does not follow the required format."
-            echo ""
-            echo "   Title must start with one of:"
-            echo "     [major] <description>"
-            echo "     [minor] <description>"
-            echo "     [patch] <description>"
+            echo "❌ PR title must START with: major, minor, or patch (case-insensitive)."
             echo ""
             echo "   Examples:"
-            echo "     ✅  [patch] Fix useDebounce cleanup on unmount"
-            echo "     ✅  [minor] Add useThrottle hook"
-            echo "     ✅  [major] Rename all hooks to new API"
+            echo "     ✅  minor: setup CI pipeline"
+            echo "     ✅  Minor setup CI pipeline"
+            echo "     ✅  PATCH fix useDebounce cleanup"
+            echo "     ✅  major breaking API change"
+            echo "     ❌  feat: add hook - minor change  (word not at start)"
             echo ""
             echo "   Received: '${PR_TITLE}'"
             echo ""
