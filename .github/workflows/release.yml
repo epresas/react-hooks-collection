@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   # ─────────────────────────────────────────────────────────────────────────────
@@ -30,14 +31,14 @@ jobs:
           MSG=$(git log -1 --pretty=%s)
           echo "Commit message: $MSG"
 
-          if echo "$MSG" | grep -qiE '^major'; then
+          if echo "$MSG" | grep -qiE '^(major|breaking|feat!)'; then
             echo "type=major" >> "$GITHUB_OUTPUT"
-          elif echo "$MSG" | grep -qiE '^minor'; then
+          elif echo "$MSG" | grep -qiE '^(minor|feat: )'; then
             echo "type=minor" >> "$GITHUB_OUTPUT"
-          elif echo "$MSG" | grep -qiE '^patch'; then
+          elif echo "$MSG" | grep -qiE '^(patch|fix:|perf:|refactor:|chore:|docs:|test:)'; then
             echo "type=patch" >> "$GITHUB_OUTPUT"
           else
-            echo "⚠️  No [major|minor|patch] prefix found in commit message."
+            echo "⚠️  No [major|minor|patch] or conventional prefix found in commit message."
             echo "   Skipping tag creation."
             echo "type=skip" >> "$GITHUB_OUTPUT"
           fi
