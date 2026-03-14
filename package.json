@@ -1,6 +1,7 @@
 {
   "name": "@epresas/react-hooks-collection",
   "version": "1.0.0",
+  "type": "module",
   "description": "A production-ready, strictly typed collection of React Hooks designed as an internal toolset for scalable applications.",
   "homepage": "https://github.com/epresas/react-hooks-collection",
   "repository": {
@@ -19,6 +20,7 @@
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "test": "vitest run",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint src/"
   },
   "peerDependencies": {
@@ -33,11 +35,16 @@
     "scalable"
   ],
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.57.0",
+    "@typescript-eslint/parser": "^8.57.0",
+    "eslint": "^10.0.3",
+    "globals": "^17.4.0",
     "jsdom": "^28.1.0",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3",
