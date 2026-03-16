@@ -1,5 +1,11 @@
 # @epresas/react-hooks-collection
 
+![CI Status](https://github.com/epresas/react-hooks-collection/actions/workflows/ci.yml/badge.svg)
+![NPM Version](https://img.shields.io/npm/v/@epresas/react-hooks-collection)
+![NPM Downloads](https://img.shields.io/npm/dm/@epresas/react-hooks-collection)
+![NPM License](https://img.shields.io/npm/l/@epresas/react-hooks-collection)
+![Security Audit](https://img.shields.io/badge/security-npm%20audit-brightgreen)
+
 A premium collection of high-seniority React hooks, designed to solve real-world problems inspired by the most common technical challenges on StackOverflow.
 
 Developed with **TypeScript**, **Vitest**, and **GitHub Actions**.
