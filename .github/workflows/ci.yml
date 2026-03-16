@@ -41,17 +41,17 @@ jobs:
         env:
           PR_TITLE: ${{ github.event.pull_request.title }}
         run: |
-          # Case-insensitive: title must START with the word major, minor, or patch
-          if ! echo "$PR_TITLE" | grep -qiE '^(major|minor|patch)'; then
+          # Title must start with semver keywords OR conventional commit types
+          PATTERN='^((major|minor|patch)|(feat|fix|perf|refactor|chore|docs|test|build|ci))(!?):'
+          if ! echo "$PR_TITLE" | grep -qiE "$PATTERN"; then
             echo ""
-            echo "❌ PR title must START with: major, minor, or patch (case-insensitive)."
+            echo "❌ PR title must START with a valid prefix (case-insensitive)."
             echo ""
-            echo "   Examples:"
-            echo "     ✅  minor: setup CI pipeline"
-            echo "     ✅  Minor setup CI pipeline"
-            echo "     ✅  PATCH fix useDebounce cleanup"
-            echo "     ✅  major breaking API change"
-            echo "     ❌  feat: add hook - minor change  (word not at start)"
+            echo "   Semantic prefixes:"
+            echo "     ✅  major: ..., minor: ..., patch: ..."
+            echo ""
+            echo "   Conventional prefixes (Safety Net):"
+            echo "     ✅  feat: (minor), fix: (patch), chore: (patch), etc."
             echo ""
             echo "   Received: '${PR_TITLE}'"
             echo ""
