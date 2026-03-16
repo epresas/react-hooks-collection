@@ -9,7 +9,29 @@ on:
 
 jobs:
   # ─────────────────────────────────────────────────────────────────────────────
-  # 1. Validate branch naming convention: <type>/<description>
+  # 1. Security: Audit dependencies
+  # ─────────────────────────────────────────────────────────────────────────────
+  security:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # 2. Validate branch naming convention: <type>/<description>
   # ─────────────────────────────────────────────────────────────────────────────
   validate-branch-name:
     name: Validate Branch Name
