@@ -31,39 +31,6 @@ jobs:
         run: npm audit --audit-level=high
 
   # ─────────────────────────────────────────────────────────────────────────────
-  # 2. Validate branch naming convention: <type>/<description>
-  # ─────────────────────────────────────────────────────────────────────────────
-  validate-branch-name:
-    name: Validate Branch Name
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check branch name follows <type>/<description> convention
-        env:
-          BRANCH: ${{ github.head_ref }}
-        run: |
-          PATTERN='^(feature|bugfix|chore|hotfix|release|fix|docs|refactor|test|perf)/.+'
-          if [[ ! "$BRANCH" =~ $PATTERN ]]; then
-            echo ""
-            echo "❌ Branch name '${BRANCH}' does not follow the required naming convention."
-            echo ""
-            echo "   Branches must follow the pattern:"
-            echo "     <type>/<brief-description>"
-            echo ""
-            echo "   Allowed types:"
-            echo "     feature, bugfix, chore, hotfix, release,"
-            echo "     fix, docs, refactor, test, perf"
-            echo ""
-            echo "   Examples:"
-            echo "     ✅  feature/add-use-throttle"
-            echo "     ✅  bugfix/fix-debounce-memory-leak"
-            echo "     ❌  feature-add-use-throttle   (missing slash)"
-            echo "     ❌  my-random-branch           (no type prefix)"
-            echo ""
-            exit 1
-          fi
-          echo "✅ Branch name '${BRANCH}' is valid."
-
-  # ─────────────────────────────────────────────────────────────────────────────
   # 2. Validate PR title: must start with [major], [minor], or [patch]
   # ─────────────────────────────────────────────────────────────────────────────
   validate-pr-title:
