@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0  # Needed to access all tags
 
@@ -118,7 +118,7 @@ jobs:
     runs-on: ubuntu-latest
     if: needs.create-tag.outputs.tag != ''
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-node@v4
         with:
           node-version: 20
